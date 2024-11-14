@@ -219,21 +219,48 @@ form.addEventListener("submit", async (event) => {
 event.preventDefault();
 
 const formData = new FormData(form);
-const argument = formData.get('customUrl');
+const resultDiv = document.getElementById('resultText');
+const tmp = formData.get('customUrl');
+const argument = extraerDominio(tmp)
+console.log(argument);
 	const response = await fetch('/api/exec_shell', {
 	method: 'POST',
 	headers: {
-		'Content-Type': 'application/json',
+		'Content-Type': 'text/plain',
 	},
-	body: JSON.stringify({ argument }),
-	});
-	const data = await response.json();
-          if (response.ok) {
-			console.log("Pass");
-            document.getElementById('result').innerHTML = `Resultado: ${data.stdout}`;
-          } else {
-			console.log("NotPass");
-            document.getElementById('result').innerHTML = `Error: ${data.stderr}`;
-          }
-        }
-    );
+	body: argument, })
+	    // Verificar si la respuesta es exitosa
+		if (!response.ok) {
+			throw new Error(`Error en la solicitud: ${response.status}`);
+		  }
+	  
+		  // Obtener la respuesta como texto
+		const data = await response.text();
+		resultDiv.innerHTML = data.replace(/\n/g, '<br>');
+        //resultDiv.textContent = data; // Esto reemplaza el texto dentro del div
+		})
+
+		function extraerDominio(cadena) {
+			// Busca la posición de "www." en la cadena
+			const indiceWww = cadena.indexOf("www.");
+		  
+			// Si se encuentra "www.", devuelve la subcadena desde esa posición hasta el final
+			if (indiceWww !== -1) {
+			  return cadena.slice(indiceWww);
+			} else {
+			  cadena = "www." + cadena;
+			  // Si no se encuentra "www.", devuelve un mensaje indicando que no se encontró
+			  return cadena;
+			}
+		  }
+form.addEventListener("submit", async (event) => {
+		event.preventDefault();
+			try {
+			  const response = await fetch('/api/distintc_domains');
+			  if (!response.ok) throw new Error('Error al cargar los dominios');
+			  const opcionesHTML = await response.text();
+			  document.getElementById('tabs').innerHTML = opcionesHTML;
+			} catch (error) {
+			  console.error(error);
+			}
+		  ;})
