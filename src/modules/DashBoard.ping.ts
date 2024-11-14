@@ -215,7 +215,7 @@ if (document.getElementById('chart_ping')) {
 
 
 const form = document.getElementById('urlForm');
-form.addEventListener('submit', async (event) => {
+form.addEventListener("submit", async (event) => {
 event.preventDefault();
 
 const formData = new FormData(form);
