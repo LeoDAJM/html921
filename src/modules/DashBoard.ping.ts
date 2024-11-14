@@ -212,24 +212,6 @@ if (document.getElementById('chart_ping')) {
 	});
 }
 
-/* const form = document.getElementById('urlForm');
-form.addEventListener('submit', async (event) => {
-  event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-
-const formData = new FormData(form);
-const customUrl = formData.get('customUrl');
-
-  // Llamar a la función de actualización del gráfico (updateChart) pasando la URL
-try {
-	// Llamar a la función updateChart con la URL personalizada
-	await updateChart(customUrl);
-	status = "Gráfico actualizado correctamente";
-} catch (error) {
-	status = "Error al actualizar el gráfico";
-	console.error('Error al actualizar el gráfico:', error);
-}
-}); */
-
 
 
 const form = document.getElementById('urlForm');
@@ -238,8 +220,6 @@ event.preventDefault();
 
 const formData = new FormData(form);
 const argument = formData.get('customUrl');
-console.log(argument)
-
 	const response = await fetch('/api/exec_shell', {
 	method: 'POST',
 	headers: {
@@ -247,4 +227,13 @@ console.log(argument)
 	},
 	body: JSON.stringify({ argument }),
 	});
-});
+	const data = await response.json();
+          if (response.ok) {
+			console.log("Pass");
+            document.getElementById('result').innerHTML = `Resultado: ${data.stdout}`;
+          } else {
+			console.log("NotPass");
+            document.getElementById('result').innerHTML = `Error: ${data.stderr}`;
+          }
+        }
+    );

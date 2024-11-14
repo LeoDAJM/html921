@@ -7,7 +7,6 @@ const execPromise = promisify(exec);
 
 export const POST: APIRoute = async ({ request }) => {
 if (request.method === 'POST') {
-    console.log("passed")
     try {
       //Obtener el argumento desde el cuerpo de la solicitud
     const { argument } = await request.json();
@@ -17,11 +16,10 @@ if (request.method === 'POST') {
     }    
 
       // Definir la ruta al script .sh
-      const scriptPath = path.resolve('./scripts/ping.sh');  // Ajusta la ruta si es necesario
+      const scriptPath = path.resolve('./src/scripts/ping.sh');  // Ajusta la ruta si es necesario
 
       // Ejecutar el script con el argumento pasado
     const { stdout, stderr } = await execPromise(`${scriptPath} ${argument}`);
-
       // Si hay error en el script, devuelve el error
     if (stderr) {
         return new Response(`Error: ${stderr}`, { status: 500 });
@@ -31,7 +29,6 @@ if (request.method === 'POST') {
     } catch (error) {
     return new Response(`Error al ejecutar el script: ${error.message}`, { status: 500 });
     }
-    return new Response(`Resultado: ${stdout}`, { status: 200 });
 } else {
     return new Response('Método no permitido', { status: 405 });
 }

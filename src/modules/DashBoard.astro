@@ -14,10 +14,10 @@ let result = ''; // Variable para mostrar el resultado
 				<div class="flex-shrink-0">
 					<span
 						class="text-xl font-bold leading-none text-gray-900 sm:text-2xl dark:text-white"
-						>$45,385</span
+						>Gráfico</span
 					>
 					<h3 class="text-base font-light text-gray-500 dark:text-gray-400">
-						Sales this week
+						Mediciones de Ping
 					</h3>
 				</div>
 				<div
@@ -229,9 +229,9 @@ let result = ''; // Variable para mostrar el resultado
 			/>
 			<button class="flex items-center mb-3 mt-5 text-m text-gray-900 dark:text-white border-2 border-white rounded-lg p-2" type="submit">Enviar</button>
 			</form>
-			</div>
 			<div id="result">
-				{result && <p>Resultado: {result}</p>}
+				<p class="flex items-center text-m text-gray-900 dark:text-white  mb-3 mt-5 ">Resultado: {result}</p>
+			</div>
 			</div>
 			<!-- Card Footer -->
 			<div
@@ -453,6 +453,7 @@ let result = ''; // Variable para mostrar el resultado
 	<script>
 		import './DashBoard.ping.js';
 	</script>
+
 
 	<style is:global>
 		/* chart styles */

@@ -5,8 +5,8 @@ import mariadb from 'mariadb';
 // Configuración de la conexión con MariaDB
 const pool = mariadb.createPool({
   host: '127.0.0.1',  // Cambia a tu host de la base de datos
-  user: 'root',       // Usuario de tu base de datos
-  password: '', // Contraseña de tu base de datos
+  user: 'ale',       // Usuario de tu base de datos
+  password: 'AleGatoGalleta', // Contraseña de tu base de datos
   database: 'ping_db',   // Nombre de tu base de datos
   port: 3306, // Puerto, usa el puerto adecuado
   connectionLimit: 5, // Número máximo de conexiones simultáneas
