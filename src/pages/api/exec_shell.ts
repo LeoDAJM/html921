@@ -9,11 +9,11 @@ const execPromise = promisify(exec);
     try {
       // Obtener el argumento desde el cuerpo de la solicitud (texto plano)
       const argument = await request.text();  // Esto nos da el texto plano enviado en el cuerpo
-      console.log('Argumento recibido:', argument);  // Verifica que el argumento está siendo recibido correctamente
+      //console.log('Argumento recibido:', argument);  // Verifica que el argumento está siendo recibido correctamente
   
       // Definir la ruta al script .sh
       const scriptPath = path.resolve('./src/scripts/ping.sh');  // Ajusta la ruta si es necesario
-      console.log('Ruta al script:', scriptPath);
+      //console.log('Ruta al script:', scriptPath);
       // Configurar un tiempo máximo de espera (por ejemplo 5 segundos)
     const timeout = 50000; // 5000 ms = 5 segundos
 

@@ -15,11 +15,12 @@ const pool = mariadb.createPool({
 export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const params = url.searchParams;
-  console.log("params")
-  console.log(params)
-  const serverUrl2 = params.toString();
-  const serverUrl = serverUrl2.slice(10);
-  console.log(serverUrl); // Debería mostrar 'www.entel.bo'
+
+  // Obtén los parámetros de la solicitud
+  const serverUrl = params.get('serverUrl');
+  const start = params.get('start'); // Fecha de inicio
+  const end = params.get('end');     // Fecha de fin
+  console.log(serverUrl,start,end);
   const query = 'SELECT * FROM ping_data WHERE domain = ?';
   if (!serverUrl) {
     return new Response(
@@ -36,8 +37,13 @@ export const GET: APIRoute = async ({ request }) => {
 
     // Realizamos la consulta para obtener todos los datos de ping
     const rows = await connection.query(
-      'SELECT timestamp, ping_max, ping_min, ping_avg FROM ping_data WHERE domain = ? ORDER BY timestamp',
-      [serverUrl]
+`
+      SELECT * 
+      FROM ping_data 
+      WHERE domain = ? 
+      AND timestamp BETWEEN ? AND ?
+    `,
+    [serverUrl, start, end]
     );
         // Si no se encuentran resultados
     if (rows.length === 0) {
@@ -48,7 +54,6 @@ export const GET: APIRoute = async ({ request }) => {
         { status: 404 }
       );
     }
-    console.log(rows)    // Formateo de los datos para el gráfico
     const formattedData = rows.map((row: any) => ({
       timestamp: row.timestamp,
       max: row.ping_max,

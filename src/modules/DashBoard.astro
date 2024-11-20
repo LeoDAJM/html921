@@ -20,16 +20,10 @@ let result = ''; // Variable para mostrar el resultado
 						Mediciones de Ping
 					</h3>
 				</div>
-				<div
+				<div id = "sitetxt"
 					class="flex items-center justify-end flex-1 text-base font-medium text-green-500 dark:text-green-400"
 				>
-					12.5%
-					<svg
-						class="w-5 h-5"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-					>
+					Site
 						<path
 							fill-rule="evenodd"
 							d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
@@ -49,7 +43,7 @@ let result = ''; // Variable para mostrar el resultado
 						class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 rounded-lg hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
 						type="button"
 						data-dropdown-toggle="weekly-sales-dropdown"
-						>Last 7 days <svg
+						><div id = "txt_range">Select Range</div><svg
 							class="w-4 h-4 ml-2"
 							fill="none"
 							stroke="currentColor"
@@ -63,83 +57,33 @@ let result = ''; // Variable para mostrar el resultado
 						></button
 					>
 					<!-- Dropdown menu -->
-					<div
-						class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-						id="weekly-sales-dropdown"
-					>
+					<div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="weekly-sales-dropdown">
 						<div class="px-4 py-3" role="none">
-							<p
-								class="text-sm font-medium text-gray-900 truncate dark:text-white"
-								role="none"
-							>
-								Sep 16, 2021 - Sep 22, 2021
-							</p>
+						  <p class="text-sm font-medium text-gray-900 truncate dark:text-white" role="none" id="selected-range">
+							- : -
+						  </p>
 						</div>
 						<ul class="py-1" role="none">
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Yesterday</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Today</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Last 7 days</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Last 30 days</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Last 90 days</a
-								>
-							</li>
+						  <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" data-range="yesterday">Yesterday</a></li>
+						  <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" data-range="today">Today</a></li>
+						  <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" data-range="last7">Last 7 days</a></li>
+						  <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" data-range="last30">Last 30 days</a></li>
+						  <li><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" data-range="last90">Last 90 days</a></li>
 						</ul>
 						<div class="py-1" role="none">
-							<a
-								href="#"
-								class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-								role="menuitem">Custom...</a
-							>
+						  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem" data-range="custom" id="custom-range">Custom...</a>
+						  <div id="custom-range-modal" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-back">
+							<form id="custom-range-form">
+							<label>
+								<input type="datetime-local" id="custom-start-date" required />
+							</label>
+							<label>
+								<input type="datetime-local" id="custom-end-date" required />
+							</label>
+							</form>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="flex-shrink-0">
-					<a
-						href="#"
-						class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700"
-					>
-						Sales Report
-						<svg
-							class="w-4 h-4 ml-1"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M9 5l7 7-7 7"></path></svg
-						>
-					</a>
+					  </div>
 				</div>
 			</div>
 		</div>
@@ -205,15 +149,6 @@ let result = ''; // Variable para mostrar el resultado
 				  id="tabs"
 				  class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 				>
-				  <option value="www.umsa.bo">www.umsa.bo</option>
-				  <option value="www.entel.bo">www.entel.bo</option>
-				  <option value="www.cnn.com">www.cnn.com</option>
-				  <option value="www.lequipe.fr">www.lequipe.fr</option>
-				  <option value="www.canada.ca">www.canada.ca</option>
-				  <option value="www.exteriores.gob.es">www.exteriores.gob.es</option>
-				  <option value="www.argentina.gob.ar">www.argentina.gob.ar</option>
-				  <option value="www.holland.com">www.holland.com</option>
-				  <option value="services.gov.ng">services.gov.ng</option>
 				</select>
 			  </div>
 			<h1 class="flex items-center text-m text-gray-900 dark:text-white  mb-3 mt-5 ">Formulario de URL Personalizado</h1>
@@ -316,134 +251,6 @@ let result = ''; // Variable para mostrar el resultado
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div
-		class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3"
-	>
-		<div
-			class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800"
-		>
-			<div class="w-full">
-				<h3 class="text-base font-normal text-gray-500 dark:text-gray-400">
-					New products
-				</h3>
-				<span
-					class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white"
-					>2,340</span
-				>
-				<p
-					class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400"
-				>
-					<span
-						class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400"
-					>
-						<svg
-							class="w-4 h-4"
-							fill="currentColor"
-							viewBox="0 0 20 20"
-							xmlns="http://www.w3.org/2000/svg"
-							aria-hidden="true"
-						>
-							<path
-								clip-rule="evenodd"
-								fill-rule="evenodd"
-								d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"
-							></path>
-						</svg>
-						12.5%
-					</span>
-					Since last month
-				</p>
-			</div>
-			<div class="w-full" id="new-products-chart"></div>
-		</div>
-		<div
-			class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800"
-		>
-			<div class="w-full">
-				<h3 class="text-base font-normal text-gray-500 dark:text-gray-400">
-					Users
-				</h3>
-				<span
-					class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white"
-					>2,340</span
-				>
-				<p
-					class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400"
-				>
-					<span
-						class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400"
-					>
-						<svg
-							class="w-4 h-4"
-							fill="currentColor"
-							viewBox="0 0 20 20"
-							xmlns="http://www.w3.org/2000/svg"
-							aria-hidden="true"
-						>
-							<path
-								clip-rule="evenodd"
-								fill-rule="evenodd"
-								d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"
-							></path>
-						</svg>
-						3,4%
-					</span>
-					Since last month
-				</p>
-			</div>
-			<div class="w-full" id="week-signups-chart"></div>
-		</div>
-		<div
-			class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800"
-		>
-			<div class="w-full">
-				<h3 class="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">
-					Audience by age
-				</h3>
-				<div class="flex items-center mb-2">
-					<div class="w-16 text-sm font-medium dark:text-white">50+</div>
-					<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-						<div
-							class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500"
-							style="width: 18%"
-						>
-						</div>
-					</div>
-				</div>
-				<div class="flex items-center mb-2">
-					<div class="w-16 text-sm font-medium dark:text-white">40+</div>
-					<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-						<div
-							class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500"
-							style="width: 15%"
-						>
-						</div>
-					</div>
-				</div>
-				<div class="flex items-center mb-2">
-					<div class="w-16 text-sm font-medium dark:text-white">30+</div>
-					<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-						<div
-							class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500"
-							style="width: 60%"
-						>
-						</div>
-					</div>
-				</div>
-				<div class="flex items-center mb-2">
-					<div class="w-16 text-sm font-medium dark:text-white">20+</div>
-					<div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-						<div
-							class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500"
-							style="width: 30%"
-						>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="traffic-channels-chart" class="w-full"></div>
 		</div>
 	</div>
 
